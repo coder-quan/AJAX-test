@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang = "en" >
+<head >
+  <meta charset = "UTF-8" >
+  <title >axios 发送AJAX请求</title >
+  <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.js"></script>
+</head >
+<body >
+  <button >GET</button >
+  <button >POST</button >
+  <button >AJAX</button >
+  <script>
+    const btns = document.querySelectorAll('button')
+    // 配置baseURL
+    axios.defaults.baseURL = 'http://127.0.0.1:8000'
+
+    btns[0].onclick = function () {
+      axios.get('/axios-server',{
+        params: {
+          id: 100,
+          vip: 7
+        },
+        headers: {
+          name: 'quan',
+          age: 18
+        }
+      })
+      .then(value => {
+        console.log(value)
+      })
+    }
+    btns[1].onclick = function () {
+      axios.post('/axios-server',{
+        data: {
+          name: 'quan',
+          age: 18
+        }
+      },{
+        params: {
+          id: 200,
+          vip: 9
+        },
+        headers: {
+          height: 180,
+          weight: 180
+        }
+      })
+      .then(value => {
+        console.log(value)
+      })
+    }
+    btns[2].onclick = function () {
+      axios({
+        // 请求方法
+        method: 'POST',
+        // url
+        url: '/axios-server',
+        // url参数
+        params: {
+          vip: 10,
+          level: 1001
+        },
+        // 头信息
+        headers: {
+          a: 100,
+          b: 200
+        },
+        // 请求体参数
+        data: {
+          username: 'quan',
+          password: '123456'
+        }
+      })
+      .then(response => {
+        console.log(response)
+        console.log("响应状态码："+response.status)
+        console.log("响应状态字符串："+response.statusText)
+        // 响应头信息
+        console.log(response.headers)
+        // 响应体
+        console.log(response.data)
+      })
+    }
+  </script>
+</body >
+</html >

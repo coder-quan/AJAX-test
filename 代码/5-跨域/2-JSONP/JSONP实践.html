@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang = "en" >
+<head >
+  <meta charset = "UTF-8" >
+  <title >案例</title >
+</head >
+<body >
+  用户名：<input type="text" id="username">
+  <p></p>
+  <script>
+    const input = document.querySelector('input')
+    const p = document.querySelector('p')
+    function handle(data){
+      input.style.border = 'solid 1px #f00'
+      p.innerHTML = data.msg
+    }
+    input.onblur = function (){
+      // 获取用户输入值
+      const usernamr = this.value
+      // 通过script标签进行跨域请求，只能返回js语句
+      const script = document.createElement('script')
+      script.src = 'http://127.0.0.1:8000/check-username'
+      document.body.appendChild(script)
+    }
+  </script>
+</body >
+</html >

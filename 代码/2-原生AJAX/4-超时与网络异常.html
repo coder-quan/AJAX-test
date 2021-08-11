@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang = "en" >
+<head >
+  <meta charset = "UTF-8" >
+  <title > 超时与网络异常</title >
+  <style>
+      #result {
+          width: 200px;
+          height: 100px;
+          border: solid 1px #89e;
+      }
+  </style>
+</head >
+<body >
+<button>点击发送请求</button>
+<div id="result"></div>
+<script>
+  const btn = document.querySelector('button')
+  const result = document.querySelector('#result')
+  btn.addEventListener('click', function (){
+    // 1.创建对象
+    const xhr = new XMLHttpRequest()
+    xhr.timeout = 2000
+    //超时回调
+    xhr.ontimeout = function (){
+      alert("网络异常，请稍后再试")
+    }
+    // 顶部network下方有个下拉框，选中oggline即可测试次功能
+    xhr.onerror = function (){
+      alert("你的网络似乎出现了问题")
+    }
+    // 2.初始化 设置类型与url
+    xhr.open('GET', 'http://127.0.0.1:8000/delay')
+    // 3.发送
+    xhr.send()
+    // 4.事件绑定
+    xhr.onreadystatechange = function (){
+      if(xhr.readyState === 4){
+        if(xhr.status >= 200 && xhr.status < 300){
+          // 处理服务端返回的结果
+          result.innerHTML = xhr.response
+        }
+      }
+    }
+  })
+</script>
+
+</body >
+</html >
